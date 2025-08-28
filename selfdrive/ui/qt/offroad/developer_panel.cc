@@ -36,6 +36,8 @@ DeveloperPanel::DeveloperPanel(SettingsWindow *parent) : ListWidget(parent) {
   );
   experimentalLongitudinalToggle->setConfirmation(true, false);
   QObject::connect(experimentalLongitudinalToggle, &ParamControl::toggleFlipped, [=]() {
+    // Trigger a soft onroad cycle so onroad processes pick up the new setting
+    params.putBool("OnroadCycleRequested", true);
     updateToggles(offroad);
   });
   addItem(experimentalLongitudinalToggle);
